@@ -315,17 +315,25 @@
 <p>我们来观察这个模型，可以看到是由四个部分构成。</p>
 <h3 id="嵌入层"><a href="#嵌入层" class="headerlink" title="嵌入层"></a>嵌入层</h3><p>假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都生成一个k维的word2vec向量，然后我们将它们合并，成为一个n&times;k的二维矩阵，这就是预训练。对于这个矩阵，可以是static的也可以是non-static的，static就是不会随着接下来的训练而改变的，而non-static是可以根据反向传播来更新</p>
 <h3 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h3><p>卷积层是CNN模型的核心。</p>
-<p>在卷积操作中，使用一个窗口大小为h的filter来产生新的特征。例如，一个特征$c_i$的生成是根据单词窗口<br>$$<br>c_i=f({\bf{w}}\cdot{\bf{c}}_{i:i-h+1}+b)<br>$$</p>
-<p>最后生成了一个特征图<br>$$<br>{\bf{c}}=[c_1,c_2,…,c_{n-h+1}]<br>$$</p>
-<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p>在池化层我们采用的是最大池化，</p>
-<h3 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h3><h2 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h2><ul>
-<li>filter窗口大小h为3，4，5，每一个都有100个特征图</li>
-<li>dropout为0.5</li>
+<p>在卷积操作中，使用一个窗口大小为h的filter来产生新的特征。例如，一个特征$c_i$的生成是根据单词窗口${\bf{x}}_{i:i-h+1}$<br>$$<br>c_i=f({\bf{w}}\cdot{\bf{x}}_{i:i-h+1}+b)<br>$$</p>
+<p>其中，b是个bias term，$f$是一个非线性的类似于双曲正切函数，最后生成了一个特征图feature map<br>$$<br>{\bf{c}}=[c_1,c_2,…,c_{n-h+1}]<br>$$</p>
+<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p>在池化层我们采用的是最大池化，max-pooling只会输出最大值，对输入中的补0做过滤</p>
+<h3 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h3><p>最后一层就是简单的softmax层，同时防止过拟合dropout，最后输出每个类别的概率</p>
+<h2 id="数据和实验设置"><a href="#数据和实验设置" class="headerlink" title="数据和实验设置"></a>数据和实验设置</h2><h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><ul>
+<li>rectified linear units 线性修正单元</li>
+<li>filter窗口大小h为3，4，5，对应的feature map 大小为100</li>
+<li>dropout为0.5，l2 constraint (s)为3</li>
 <li>每次随机抓取50个数据</li>
 <li>通过网格搜索方法得到最优参数</li>
 <li>随机选取训练集的10%作为验证集</li>
 </ul>
-<hr>
+<h3 id="模型变化"><a href="#模型变化" class="headerlink" title="模型变化"></a>模型变化</h3><ul>
+<li><strong>CNN-rand</strong>：我们的基准模型所有的单词随机初始化并在训练过程中修改</li>
+<li><strong>CNN-static</strong>：使用word2vec进行预训练，在进行了初始化后将保持不变，只有其它的参数模型可以学习</li>
+<li><strong>CNN-non-static</strong>：预训练相同，但不用保持不变</li>
+<li><strong>CNN-multichannel</strong>：一个模型将会由2个单词向量集合，每一个集合将被视为一个通道，每一个filter应用于2个通道上，但是梯度下降的反向传播只通过一个通道。</li>
+</ul>
+<h2 id="论文复现"><a href="#论文复现" class="headerlink" title="论文复现"></a>论文复现</h2><hr>
 
           
         
@@ -560,6 +568,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/SacrificeKnight" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:929831238@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
