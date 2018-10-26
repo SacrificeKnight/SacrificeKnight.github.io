@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="深度学习,文本分类,">
 
 
 
@@ -80,6 +80,7 @@
 
 
 <meta name="description" content="简介卷积神经网络常常应用于语音识别，计算机视觉的领域中，Yoon Kim 提出了将卷积神经网络应用于文本分类中，即TextCNN模型。它首先将文本分词，再对每个单词生成word2vec向量，之后再利用CNN进行分类，同时还对传统的CNN做了４点改进。 模型模型的主要内容参考下图 我们来观察这个模型，可以看到是由四个部分构成。 嵌入层假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都">
+<meta name="keywords" content="深度学习,文本分类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TextCNN论文阅读笔记">
 <meta property="og:url" content="http://yoursite.com/2018/10/25/TextCNN论文阅读笔记/index.html">
@@ -87,7 +88,7 @@
 <meta property="og:description" content="简介卷积神经网络常常应用于语音识别，计算机视觉的领域中，Yoon Kim 提出了将卷积神经网络应用于文本分类中，即TextCNN模型。它首先将文本分词，再对每个单词生成word2vec向量，之后再利用CNN进行分类，同时还对传统的CNN做了４点改进。 模型模型的主要内容参考下图 我们来观察这个模型，可以看到是由四个部分构成。 嵌入层假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/10/25/TextCNN论文阅读笔记/modle.png">
-<meta property="og:updated_time" content="2018-10-25T09:26:39.972Z">
+<meta property="og:updated_time" content="2018-10-26T10:05:33.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TextCNN论文阅读笔记">
 <meta name="twitter:description" content="简介卷积神经网络常常应用于语音识别，计算机视觉的领域中，Yoon Kim 提出了将卷积神经网络应用于文本分类中，即TextCNN模型。它首先将文本分词，再对每个单词生成word2vec向量，之后再利用CNN进行分类，同时还对传统的CNN做了４点改进。 模型模型的主要内容参考下图 我们来观察这个模型，可以看到是由四个部分构成。 嵌入层假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都">
@@ -316,8 +317,17 @@
 <p>我们来观察这个模型，可以看到是由四个部分构成。</p>
 <h3 id="嵌入层"><a href="#嵌入层" class="headerlink" title="嵌入层"></a>嵌入层</h3><p>假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都生成一个k维的word2vec向量，然后我们将它们合并，成为一个n&times;k的二维矩阵，这就是预训练。对于这个矩阵，可以是static的也可以是non-static的，static就是不会随着接下来的训练而改变的，而non-static是可以根据反向传播来更新</p>
 <h3 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h3><p>卷积层是CNN模型的核心。</p>
-<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><h3 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h3><h2 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h2><hr>
-<p>## </p>
+<p>在卷积操作中，使用一个窗口大小为h的filter来产生新的特征。例如，一个特征$c_i$的生成是根据单词窗口<br>$$<br>c_i=f({\bf{w}}\cdot{\bf{c}}_{i:i-h+1}+b)<br>$$</p>
+<p>最后生成了一个特征图<br>$$<br>{\bf{c}}=[c_1,c_2,…,c_{n-h+1}]<br>$$</p>
+<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p>在池化层我们采用的是最大池化，</p>
+<h3 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h3><h2 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h2><ul>
+<li>filter窗口大小h为3，4，5，每一个都有100个特征图</li>
+<li>dropout为0.5</li>
+<li>每次随机抓取50个数据</li>
+<li>通过网格搜索方法得到最优参数</li>
+<li>随机选取训练集的10%作为验证集</li>
+</ul>
+<hr>
 
       
     </div>
@@ -332,6 +342,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/文本分类/" rel="tag"># 文本分类</a>
+          
+        </div>
       
 
       
@@ -437,6 +455,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
@@ -673,6 +700,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
