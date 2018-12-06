@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="深度学习,文本分类,">
+  <meta name="keywords" content="深度学习,推荐系统,">
 
 
 
@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="简介卷积神经网络常常应用于语音识别，计算机视觉的领域中，Yoon Kim 提出了将卷积神经网络应用于文本分类中，即TextCNN模型。它首先将文本分词，再对每个单词生成word2vec向量，之后再利用CNN进行分类，同时还对传统的CNN做了４点改进。 模型模型的主要内容参考下图 我们来观察这个模型，可以看到是由四个部分构成。 嵌入层假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都">
-<meta name="keywords" content="深度学习,文本分类">
+<meta name="description" content="简介提出了一个新的深度学习模型AutoRec，它是AE和CF的结合，从实验结果表明，它优于CF和RBM等模型 模型在一个rating-based的CF模型中，我们假设有$m$个user，$n$个items，以及一个user-item的评分矩阵$R$。 对于每一个user的评分，我们可以用向量$r^{(u)}=(R_{(u1)},…,R_{(un)})\in\Bbb{R}^n$来表示； 同理，对于每">
+<meta name="keywords" content="深度学习,推荐系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TextCNN论文阅读笔记">
-<meta property="og:url" content="http://yoursite.com/2018/10/25/TextCNN论文阅读笔记/index.html">
+<meta property="og:title" content="AutoRec:Autoencoders Meet Collaborative Filtering">
+<meta property="og:url" content="http://yoursite.com/2018/12/04/AutoRec/index.html">
 <meta property="og:site_name" content="殷昕的个人博客">
-<meta property="og:description" content="简介卷积神经网络常常应用于语音识别，计算机视觉的领域中，Yoon Kim 提出了将卷积神经网络应用于文本分类中，即TextCNN模型。它首先将文本分词，再对每个单词生成word2vec向量，之后再利用CNN进行分类，同时还对传统的CNN做了４点改进。 模型模型的主要内容参考下图 我们来观察这个模型，可以看到是由四个部分构成。 嵌入层假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都">
+<meta property="og:description" content="简介提出了一个新的深度学习模型AutoRec，它是AE和CF的结合，从实验结果表明，它优于CF和RBM等模型 模型在一个rating-based的CF模型中，我们假设有$m$个user，$n$个items，以及一个user-item的评分矩阵$R$。 对于每一个user的评分，我们可以用向量$r^{(u)}=(R_{(u1)},…,R_{(un)})\in\Bbb{R}^n$来表示； 同理，对于每">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/10/25/TextCNN论文阅读笔记/modle.png">
-<meta property="og:updated_time" content="2018-10-27T11:03:36.140Z">
+<meta property="og:updated_time" content="2018-12-06T06:42:46.191Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TextCNN论文阅读笔记">
-<meta name="twitter:description" content="简介卷积神经网络常常应用于语音识别，计算机视觉的领域中，Yoon Kim 提出了将卷积神经网络应用于文本分类中，即TextCNN模型。它首先将文本分词，再对每个单词生成word2vec向量，之后再利用CNN进行分类，同时还对传统的CNN做了４点改进。 模型模型的主要内容参考下图 我们来观察这个模型，可以看到是由四个部分构成。 嵌入层假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/25/TextCNN论文阅读笔记/modle.png">
+<meta name="twitter:title" content="AutoRec:Autoencoders Meet Collaborative Filtering">
+<meta name="twitter:description" content="简介提出了一个新的深度学习模型AutoRec，它是AE和CF的结合，从实验结果表明，它优于CF和RBM等模型 模型在一个rating-based的CF模型中，我们假设有$m$个user，$n$个items，以及一个user-item的评分矩阵$R$。 对于每一个user的评分，我们可以用向量$r^{(u)}=(R_{(u1)},…,R_{(un)})\in\Bbb{R}^n$来表示； 同理，对于每">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/25/TextCNN论文阅读笔记/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/04/AutoRec/">
 
 
 
 
 
-  <title>TextCNN论文阅读笔记 | 殷昕的个人博客</title>
+  <title>AutoRec:Autoencoders Meet Collaborative Filtering | 殷昕的个人博客</title>
   
 
 
@@ -245,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/25/TextCNN论文阅读笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/AutoRec/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="殷昕">
@@ -262,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">TextCNN论文阅读笔记</h1>
+          <h1 class="post-title" itemprop="name headline">AutoRec:Autoencoders Meet Collaborative Filtering</h1>
         
 
         <div class="post-meta">
@@ -274,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T16:15:40+08:00">
-                2018-10-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T15:08:17+08:00">
+                2018-12-04
               </time>
             
 
@@ -292,7 +290,7 @@
 
           
           
-             <span id="/2018/10/25/TextCNN论文阅读笔记/" class="leancloud_visitors" data-flag-title="TextCNN论文阅读笔记">
+             <span id="/2018/12/04/AutoRec/" class="leancloud_visitors" data-flag-title="AutoRec:Autoencoders Meet Collaborative Filtering">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -323,30 +321,19 @@
       
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>卷积神经网络常常应用于语音识别，计算机视觉的领域中，Yoon Kim 提出了将卷积神经网络应用于文本分类中，即TextCNN模型。它首先将文本分词，再对每个单词生成word2vec向量，之后再利用CNN进行分类，同时还对传统的CNN做了４点改进。</p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>模型的主要内容参考下图<br><img src="/2018/10/25/TextCNN论文阅读笔记/modle.png" alt=""></p>
-<p>我们来观察这个模型，可以看到是由四个部分构成。</p>
-<h3 id="嵌入层"><a href="#嵌入层" class="headerlink" title="嵌入层"></a>嵌入层</h3><p>假设句子的长度为n（一个句子由有n个单词构成），我们对每一个单词都生成一个k维的word2vec向量，然后我们将它们合并，成为一个n&times;k的二维矩阵，这就是预训练。对于这个矩阵，可以是static的也可以是non-static的，static就是不会随着接下来的训练而改变的，而non-static是可以根据反向传播来更新</p>
-<h3 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h3><p>卷积层是CNN模型的核心。</p>
-<p>在卷积操作中，使用一个窗口大小为h的filter来产生新的特征。例如，一个特征$c_i$的生成是根据单词窗口${\bf{x}}_{i:i-h+1}$<br>$$<br>c_i=f({\bf{w}}\cdot{\bf{x}}_{i:i-h+1}+b)<br>$$</p>
-<p>其中，b是个bias term，$f$是一个非线性的类似于双曲正切函数，最后生成了一个特征图feature map<br>$$<br>{\bf{c}}=[c_1,c_2,…,c_{n-h+1}]<br>$$</p>
-<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p>在池化层我们采用的是最大池化，max-pooling只会输出最大值，对输入中的补0做过滤</p>
-<h3 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h3><p>最后一层就是简单的softmax层，同时防止过拟合dropout，最后输出每个类别的概率</p>
-<h2 id="数据和实验设置"><a href="#数据和实验设置" class="headerlink" title="数据和实验设置"></a>数据和实验设置</h2><h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><ul>
-<li>rectified linear units 线性修正单元</li>
-<li>filter窗口大小h为3，4，5，对应的feature map 大小为100</li>
-<li>dropout为0.5，l2 constraint (s)为3</li>
-<li>每次随机抓取50个数据</li>
-<li>通过网格搜索方法得到最优参数</li>
-<li>随机选取训练集的10%作为验证集</li>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>提出了一个新的深度学习模型AutoRec，它是AE和CF的结合，从实验结果表明，它优于CF和RBM等模型</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>在一个rating-based的CF模型中，我们假设有$m$个user，$n$个items，以及一个user-item的评分矩阵$R$。</p>
+<p>对于每一个user的评分，我们可以用向量$r^{(u)}=(R_{(u1)},…,R_{(un)})\in\Bbb{R}^n$来表示；</p>
+<p>同理，对于每一个item，我们用向量$r^{(i)}=(R_{(1i)},…,R_{(mi)})\in\Bbb{R}^m$来表示。</p>
+<p>我们的工作目标是去设计一个item-based或者user-based的autoencoder，它的输入是一个$r^{(i)}(r^{(u)})$，然后将其压缩为低维的潜在空间，之后将其重构，以这样的方式来去预测缺失的rating。</p>
+<p>传统自编码器模型<br>$$<br>\min_{\theta}\sum_{r\in S}{||{\bf{r}}-h({\bf{r}};\theta)||_2^2}<br>$$<br>其中<br>$$<br>h({\bf{r}};\theta)=f({\bf{W}} \cdot g({\bf{Vr}}+{\bf{\mu}})+{\bf{b}})<br>$$</p>
+<p>而AutoRec模型对此做出了2点改进</p>
+<ul>
+<li>we account for the fact that each r is partially observed by only updating during backpropagation those weights that are associated with observed input</li>
+<li>为了防止过拟合加入了正则化项</li>
 </ul>
-<h3 id="模型变种"><a href="#模型变种" class="headerlink" title="模型变种"></a>模型变种</h3><ul>
-<li><strong>CNN-rand</strong>：我们的基准模型所有的单词随机初始化并在训练过程中修改</li>
-<li><strong>CNN-static</strong>：使用word2vec进行预训练，在进行了初始化后将保持不变，只有其它的参数模型可以学习</li>
-<li><strong>CNN-non-static</strong>：预训练相同，但不用保持不变</li>
-<li><strong>CNN-multichannel</strong>：一个模型将会由2个单词向量集合，每一个集合将被视为一个通道，每一个filter应用于2个通道上，但是梯度下降的反向传播只通过一个通道，总之为CNN-static和CNN-non-static的混合版</li>
-</ul>
-<h2 id="论文复现"><a href="#论文复现" class="headerlink" title="论文复现"></a>论文复现</h2><hr>
+<p>$$<br>\min_{\theta}\sum^{n}_{i=1}||r^{(i)}-h(r^{(i)};{\theta})||_O^2+\frac{\lambda}{2}(||W||^2_F+||V||_F^2)<br>$$</p>
+<h2 id="论文复现"><a href="#论文复现" class="headerlink" title="论文复现"></a>论文复现</h2><p>数据集下载地址：<a href="https://grouplens.org/datasets/movielens/" target="_blank" rel="noopener">https://grouplens.org/datasets/movielens/</a></p>
 
       
     </div>
@@ -366,7 +353,7 @@
           
             <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
-            <a href="/tags/文本分类/" rel="tag"># 文本分类</a>
+            <a href="/tags/推荐系统/" rel="tag"># 推荐系统</a>
           
         </div>
       
@@ -379,8 +366,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/25/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/12/01/自编码器入门笔记/" rel="next" title="自编码器入门笔记">
+                <i class="fa fa-chevron-left"></i> 自编码器入门笔记
               </a>
             
           </div>
@@ -388,10 +375,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/01/自编码器入门笔记/" rel="prev" title="自编码器入门笔记">
-                自编码器入门笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,7 +515,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌入层"><span class="nav-number">2.1.</span> <span class="nav-text">嵌入层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层"><span class="nav-number">2.2.</span> <span class="nav-text">卷积层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#池化层"><span class="nav-number">2.3.</span> <span class="nav-text">池化层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全连接层"><span class="nav-number">2.4.</span> <span class="nav-text">全连接层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据和实验设置"><span class="nav-number">3.</span> <span class="nav-text">数据和实验设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数设置"><span class="nav-number">3.1.</span> <span class="nav-text">参数设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型变种"><span class="nav-number">3.2.</span> <span class="nav-text">模型变种</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#论文复现"><span class="nav-number">4.</span> <span class="nav-text">论文复现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#论文复现"><span class="nav-number">3.</span> <span class="nav-text">论文复现</span></a></li></ol></div>
             
 
           </div>
