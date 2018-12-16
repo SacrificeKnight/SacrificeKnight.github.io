@@ -249,6 +249,293 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/拉格朗日乘子法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="殷昕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/a.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="殷昕的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/拉格朗日乘子法/" itemprop="url">拉格朗日乘子法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T21:36:31+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/12/拉格朗日乘子法/" class="leancloud_visitors" data-flag-title="拉格朗日乘子法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>我们在以前都学过如何去求一个函数的极值问题，即找到导数等于0的位置，在机器学习，我们一般采用梯度下降法或牛顿迭代法来求极值，但是如果加入了约束条件呢？此时可能会发生导数等于0的位置并不在约束条件里，这时拉格朗日乘子法将为你解决这个问题</p>
+<h2 id="拉格朗日乘子法"><a href="#拉格朗日乘子法" class="headerlink" title="拉格朗日乘子法"></a>拉格朗日乘子法</h2><p>从约束条件上分为：</p>
+<ul>
+<li>等式约束条件</li>
+<li>不等式约束条件</li>
+</ul>
+<p>我们先来看等值约束条件</p>
+<h3 id="等式约束条件"><a href="#等式约束条件" class="headerlink" title="等式约束条件"></a>等式约束条件</h3><p>假设函数和它的约束条件如下：<br>$$<br>\begin{split}<br>&amp; \min_xf(x)\\\<br>&amp; s.t. h_i(x)=0 ,i=1,2…m<br>\end{split}<br>$$<br>引入拉格朗日乘子$\alpha$，构建拉格朗日函数<br>$$<br>L(x,\alpha) = f(x) + \sum_{i=1}^{m}\alpha_ih_i(x)<br>$$<br>之后对其取偏导<br>$$<br>\nabla_x L(x,\alpha)=0\\\<br>\nabla_\alpha L(x,\alpha)=0<br>$$<br>最后将$x$代回$f(x)$中，即为在约束条件$h_i(x)$下的可行解</p>
+<h3 id="不等式约束条件"><a href="#不等式约束条件" class="headerlink" title="不等式约束条件"></a>不等式约束条件</h3><p>在不等式约束条件下，我们常常引入<strong>KKT条件</strong>（Karush-Kuhn-Tucker Conditions），它是在满足一些规则的前提下，一个非线性规划问题能有最优化解法的一个充分必要条件。即只要满足KKT条件，那么就可以用拉格朗日乘子法解决。</p>
+<p>假设函数及其约束条件如下<br>$$<br>\min_xf(x)\\\<br>s.t.g(x)\leq0<br>$$<br>其对应的拉格朗日函数为<br>$$<br>L(x,\lambda) = f(x) + \lambda g(x)<br>$$</p>
+<p>这时的目标函数以及约束如下图所示</p>
+<p><img src="/2018/12/12/拉格朗日乘子法/1.jpg" alt="1"></p>
+<p>红色的区域代表着约束，蓝色的等高线代表着函数，我们可以看到这个蓝色圆心便是最优解，这时会发生2种情况</p>
+<ol>
+<li>原函数的最优解就在约束条件里</li>
+<li>原函数的最优解在约束范围边界上或在其外部</li>
+</ol>
+<p>我们再来看下面的2个图</p>
+<p><img src="/2018/12/12/拉格朗日乘子法/2.jpg" alt="2"></p>
+<p>图一就是第一种情况，蓝色的点还在红色的圆圈内，此时的约束条件没有起到任何作用，得到的结果还是原来的最优值，所以当可行解落在$g(x)&lt;0$内时，直接极小化$f(x)$即可</p>
+<p>图二则是第二种情况，蓝色点在红色区域之外，此时的可行解必然在g(x)=0的边界上，此时等于与等式约束条件问题</p>
+<p>以上两种情况就是说，要么可行解落在约束边界上即得g(x)=0，要么可行解落在约束区域内部，此时约束不起作用，令 \lambda = 0消去约束即可，所以无论哪种情况都会得到：<br>$$<br>\lambda g(x) = 0<br>$$<br>即在这种情况下，我们的不等式约束是和等式约束同解的。这种情况，就是<strong>我们所说的KKT条件</strong>下。所以我们总结出此问题的KKT条件：</p>
+<p><img src="/2018/12/12/拉格朗日乘子法/3.png" alt="3"></p>
+<p>考虑以下非线性最优化问题，含有 m个不等式约束,l个等式约束<br>$$<br>\operatorname*{min}_{x}f(x) \qquad s.t. \; g_i(x) \leqslant 0,\; h_j(x) =0<br>$$<br>将其写成拉格朗日函数为<br>$$<br>L(a,b,x) = f(x) + \sum_{p=i}^ma_pg_p(x)+\sum_{q=j}^lb_qh_q(x)<br>$$<br>KKT条件是说<strong>最优值</strong>必须满足以下条件：<br>$$<br>\begin{split}<br>&amp; \nabla_x L(a,b,x) = 0\\\<br>&amp; ag(x) = 0\\\<br>&amp; h(x) = 0<br>\end{split}<br>$$</p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><a href="https://juejin.im/post/5ac196686fb9a028ca531ed0" target="_blank" rel="noopener">https://juejin.im/post/5ac196686fb9a028ca531ed0</a></p>
+<p><a href="https://www.cnblogs.com/mo-wang/p/4775548.html" target="_blank" rel="noopener">https://www.cnblogs.com/mo-wang/p/4775548.html</a></p>
+<p><a href="https://charlesliuyx.github.io/2017/09/20/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%B3%95%E5%92%8CKKT%E6%9D%A1%E4%BB%B6/" target="_blank" rel="noopener">https://charlesliuyx.github.io/2017/09/20/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%B3%95%E5%92%8CKKT%E6%9D%A1%E4%BB%B6/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/基于矩阵分解的推荐系统/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="殷昕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/a.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="殷昕的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/10/基于矩阵分解的推荐系统/" itemprop="url">基于矩阵分解的推荐系统</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T20:25:45+08:00">
+                2018-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/10/基于矩阵分解的推荐系统/" class="leancloud_visitors" data-flag-title="基于矩阵分解的推荐系统">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/Collaborative-DL-for-RS阅读笔记/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1004,7 +1291,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1017,7 +1304,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
